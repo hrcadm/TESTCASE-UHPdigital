@@ -24,7 +24,7 @@ class StoreVisitor
 	 */
 	public function setVisitorData($data)
     {
-    	$visitorData = $this->geoData->geoService('89.164.57.230');
+    	$visitorData = $this->geoData->geoService($request->server('REMOTE_ADDR'));
 
     	$start = \Session::get('start');
 
