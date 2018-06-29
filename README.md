@@ -5,3 +5,4 @@
 3. run "npm install"
 4. Handle .env params
 5. run "php artisan migrate --seed"
+6. Configure apache VH *optional*

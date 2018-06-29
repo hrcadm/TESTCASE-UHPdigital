@@ -12,13 +12,9 @@
 */
 
 ////////////// DUMMY ROUTES
-Route::get('/', 'ViewsController@welcome');
-Route::get('/aaa', 'ViewsController@aaa')->name('aaa');
-Route::get('/bbb', 'ViewsController@bbb')->name('bbb');
-Route::get('/ccc', 'ViewsController@ccc')->name('ccc');
-Route::get('/ddd', 'ViewsController@ddd')->name('ddd');
-Route::get('/eee', 'ViewsController@eee')->name('eee');
+Route::get('/', 'ViewsController@welcome')->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'AdminController@index')->name('home')->middleware('auth');
+Route::get('details/{id}', 'AdminController@show')->name('show')->middleware('auth');

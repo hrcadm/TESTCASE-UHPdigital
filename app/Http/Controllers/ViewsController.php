@@ -2,67 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Store\StoreVisitor;
 use Illuminate\Http\Request;
 
 class ViewsController extends Controller
 {
-	/**
-	 * Return Welcome view
-	 * @param  Request $request
-	 * @return
-	 */
-	public function welcome()
+	public function __construct(StoreVisitor $storeVisitor)
 	{
-		return view('welcome');
+		$this->storeVisitor = $storeVisitor;
 	}
 
 	/**
-	 * Return dummy "aaa" view
+	 * Return Welcome view
 	 * @param  Request $request
-	 * @return
+	 * @return View
 	 */
-    public function aaa(Request $request)
-    {
+	public function welcome(Request $request)
+	{
+		$data = $request;
+		$this->storeVisitor->setVisitorData($data);
 
-    }
-
-    /**
-	 * Return dummy "bbb" view
-	 * @param  Request $request
-	 * @return
-	 */
-    public function bbb(Request $request)
-    {
-
-    }
-
-    /**
-	 * Return dummy "ccc" view
-	 * @param  Request $request
-	 * @return
-	 */
-    public function ccc(Request $request)
-    {
-
-    }
-
-    /**
-	 * Return dummy "ddd" view
-	 * @param  Request $request
-	 * @return
-	 */
-    public function ddd(Request $request)
-    {
-
-    }
-
-    /**
-	 * Return dummy "eee" view
-	 * @param  Request $request
-	 * @return
-	 */
-    public function eee(Request $request)
-    {
-
-    }
+		return view('welcome');
+	}
 }

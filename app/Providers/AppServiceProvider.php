@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Session::put('start', \Carbon\Carbon::now());
     }
 
     /**

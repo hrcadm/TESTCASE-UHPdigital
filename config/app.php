@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Zagreb',
 
     /*
     |--------------------------------------------------------------------------
@@ -151,6 +151,9 @@ return [
          * Package Service Providers...
          */
 
+        \hisorange\BrowserDetect\ServiceProvider::class,
+        Midnite81\GeoLocation\GeoLocationServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -208,6 +211,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Package Aliases...
+         */
+        'Browser' => \hisorange\BrowserDetect\Facade::class,
+        'GeoLocation' => Midnite81\GeoLocation\Facades\GeoLocation::class,
 
     ],
 
