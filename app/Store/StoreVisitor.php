@@ -11,30 +11,33 @@ use Illuminate\Contracts\Session\Session;
 
 class StoreVisitor
 {
-	public function __construct(GeoData $geoData, CheckDevice $checkDevice)
+	protected $geoData;
+	protected $checkDevice;
+	protected $ip;
+
+	public function __construct()
 	{
-		$this->geoData = $geoData;
-		$this->checkDevice = $checkDevice;
+		$this->geoData = new GeoData;
+		$this->checkDevice = new CheckDevice;
 		$this->ip = $_SERVER['REMOTE_ADDR'];
 	}
 
 	/**
 	 * Store Visitor Data
-	 * @param var $data
 	 */
-	public function setVisitorData($data)
+	public function setVisitorData()
     {
-    	$visitorData = $this->geoData->geoService($request->server('REMOTE_ADDR'));
+    	$visitorData = $this->geoData->geoService($this->ip);
 
     	$start = \Session::get('start');
 
 		$visitor = Visitor::where('ip', $this->ip)->first();
 
-		if(is_null($visitor))
+		if(!$visitor)
 		{
 			$visitor = new Visitor();
 
-	    	$visitor->ip = $data->server('REMOTE_ADDR');
+			$visitor->ip = $this->ip;
 	    	$visitor->browser = Browser::browserName();
 	    	$visitor->os = Browser::platformName();
 	    	$visitor->device = $this->checkDevice->check();
@@ -49,16 +52,12 @@ class StoreVisitor
 	    	$visitor->lang = $visitorData['location']['languages'][0]['name'].' ['.strtoupper($visitorData['location']['languages'][0]['code']).']';
 
 	    	$visitor->save();
-
-			return true;
 		}
 
-		$visitor->session_start = $start;
-		$visitor->last_visit = new \DateTime();
-		$visitor->visits++;
-
+		$visitor->last_visit = \Carbon\Carbon::now();
+    	$visitor->visits++;
 		$visitor->save();
 
-    	return false;
+		return true;
     }
 }
