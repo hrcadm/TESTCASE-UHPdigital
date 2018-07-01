@@ -2,7 +2,7 @@
 
 1. Clone the app
 2. run "composer install"
-3. run "npm install"
+3. run "npm install" / "npm run dev"
 4. mv .env.example .env ()
 5. run "php artisan key:generate"
 6. run "php artisan migrate --seed"
